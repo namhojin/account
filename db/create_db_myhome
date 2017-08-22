@@ -4,7 +4,7 @@
  mysql> create user 'howard'@'%' identified by 'test';
 
 - 위 사용자에게 모든 것을 할 수 있는 권한 주기
-mysql> grant all privileges on *.* to 'userid'@'%';
+mysql> grant all privileges on *.* to 'howard'@'%';
 
 - 위 사용자에게 특정 DB를 관리할수 있는 권한 주기
  mysql> grant all privileges on myhome.* to 'howard'@'%';
