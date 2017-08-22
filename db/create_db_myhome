@@ -1,0 +1,88 @@
+ $ mysql -uroot -prootpassword mysql
+
+- 다른 PC에서 mysql 서버로 접속을 하기 위한 사용자 추가
+ mysql> create user 'howard'@'%' identified by 'test';
+
+- 위 사용자에게 모든 것을 할 수 있는 권한 주기
+mysql> grant all privileges on *.* to 'userid'@'%';
+
+- 위 사용자에게 특정 DB를 관리할수 있는 권한 주기
+ mysql> grant all privileges on myhome.* to 'howard'@'%';
+
+- 로컬PC에서 mysql로 접속하기 위한 사용자 추가
+ mysql> create user 'howard'@'localhost' identified by 'test';
+
+- 위 사용자에게 모든 것을 할 수 있는 권한 주기
+ mysql> grant all privileges on *.* to 'howard'@'localhost';
+
+- 위 사용자에게 특정 DB를 관리할 수 있는 권한 주기
+ mysql> grant all privileges on myhome.* to 'howard'@'localhost';
+
+
+DROP DATABASE myhome;
+
+CREATE DATABASE myhome CHARACTER SET utf8 COLLATE utf8_general_ci;
+
+use myhome;
+
+CREATE TABLE `payment` (
+  `num` int NOT NULL AUTO_INCREMENT,
+  `income` boolean NOT NULL,
+  `money` int,
+  `usage` varchar(50),
+  `usage_desc` varchar(50) NOT NULL,
+  `account` varchar(50) NOT NULL,
+  `category` varchar(50) NOT NULL,
+  `date` datetime NOT NULL,
+  PRIMARY KEY (num)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `income` (
+  `num` int NOT NULL AUTO_INCREMENT,
+  `money` int,
+  `usage_desc` varchar(50) NOT NULL,
+  `account` varchar(50) NOT NULL,
+  `category` varchar(50) NOT NULL,
+  `date` datetime NOT NULL,
+  PRIMARY KEY (num)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+
+CREATE TABLE `consumption` (
+  `num` int NOT NULL AUTO_INCREMENT,
+  `bname` varchar(50) NOT NULL,
+  `date` datetime NOT NULL,
+  `count` int NOT NULL,
+  PRIMARY KEY (num)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `tuner` (
+  `bname` varchar(30) NOT NULL,
+  `total` int,
+  `current` int,
+  PRIMARY KEY (bname)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `demod` (
+  `bname` varchar(30) NOT NULL,
+  `total` int,
+  `current` int,
+  PRIMARY KEY (bname)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `lend` (
+  `num` int NOT NULL AUTO_INCREMENT,
+  `type` varchar(10) NOT NULL,
+  `bname` varchar(50) NOT NULL,
+  `bnum` varchar(10) ,
+  `lend_date` datetime NOT NULL,
+  `return_date` datetime,
+  `cus` varchar(40) NOT NULL,
+  `mstar` varchar(20) NOT NULL,
+  PRIMARY KEY (num)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO `payment` (`money`,`usage`,`usage_desc`,`account`,`category`,`date`) VALUES(200,"밥집","제육볶음","현금","식비",'2014-05-10');
+INSERT INTO `income` (`money`,`usage_desc`,`account`,`category`,`date`) VALUES(200,"월급","월급통장","월급",'2014-05-10');
